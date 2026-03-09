@@ -9,30 +9,30 @@ export default async function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#FFF8F0] pt-20 md:pt-24">
+      <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden bg-[#FFF8F0] pt-28 md:pt-24 pb-12 md:pb-0">
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
-          <div className="max-w-xl space-y-6">
-            <h2 className="text-3xl md:text-5xl font-bold text-brand-blue tracking-tight leading-tight md:leading-snug">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="max-w-xl space-y-4 md:space-y-6 text-center md:text-left">
+            <h2 className="text-4xl md:text-6xl font-bold text-brand-blue tracking-tight leading-[1.1] md:leading-tight">
               {data.seo?.title || 'IITS Research & Policy Studies'}
             </h2>
-            <p className="text-brand-grey text-base md:text-xl font-medium leading-relaxed">
+            <p className="text-slate-600 text-lg md:text-xl font-medium leading-relaxed max-w-lg mx-auto md:mx-0">
               A legacy of excellence in education, training, and career development.
-              Transforming ideas into reality through integrated training and studies.
+              Transforming ideas into reality through integrated studies.
             </p>
 
-            <div className="pt-4">
-              <p className="text-brand-blue font-semibold mb-2">@iitsedu</p>
+            <div className="pt-4 flex flex-col items-center md:items-start gap-4">
+              <p className="text-brand-blue font-bold tracking-widest text-sm uppercase">@iitsedu</p>
               <Link
                 href="/about"
-                className="inline-block px-8 py-3 rounded-full border-2 border-brand-blue text-brand-blue font-bold tracking-widest hover:bg-brand-blue hover:text-white transition-all duration-300 uppercase"
+                className="inline-block px-10 py-4 rounded-full bg-brand-blue text-white font-bold tracking-widest hover:bg-blue-900 shadow-xl shadow-brand-blue/20 transition-all duration-300 uppercase text-sm"
               >
-                About Us
+                Explore Our Story
               </Link>
             </div>
           </div>
 
-          <div className="hidden md:block h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative">
+          <div className="relative h-[300px] md:h-[450px] w-full rounded-3xl overflow-hidden shadow-2xl border-2 md:border-4 border-white">
             {data.images.hero.url ? (
               <Image
                 src={data.images.hero.url}
@@ -51,38 +51,38 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Massive Text Background */}
-        <div className="w-full select-none pointer-events-none absolute bottom-1/2 translate-y-1/2 opacity-10 md:opacity-20 z-0">
-          <h1 className="text-[150px] leading-none font-bold text-brand-blue text-center tracking-tighter whitespace-nowrap">
+        {/* Massive Text Background - Responsive size */}
+        <div className="w-full select-none pointer-events-none absolute bottom-1/2 translate-y-1/2 opacity-5 md:opacity-20 z-0 overflow-hidden">
+          <h1 className="text-[20vw] md:text-[150px] leading-none font-bold text-brand-blue text-center tracking-tighter whitespace-nowrap">
             IITSRPS
           </h1>
         </div>
       </section>
 
-      {/* Stats Section - Floating overlap */}
-      <section className="py-8 md:py-12 relative z-20 container mx-auto px-4 md:px-6 -mt-16 md:-mt-32">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 bg-white/70 backdrop-blur-md rounded-2xl shadow-sm p-6 md:p-8 border border-white/50">
-          <div className="text-center">
-            <div className="text-2xl md:text-4xl font-bold text-brand-blue mb-1 md:mb-2">{data.stats?.yearsOfExperience || '15+'}</div>
-            <div className="text-[10px] md:text-sm text-brand-grey font-medium uppercase tracking-wider">Years Experience</div>
+      {/* Stats Section - Optimized for small screens */}
+      <section className="py-6 md:py-12 relative z-20 container mx-auto px-4 md:px-6 -mt-8 md:-mt-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-200/50 p-6 md:p-10 border border-white">
+          <div className="text-center p-2">
+            <div className="text-3xl md:text-5xl font-extrabold text-brand-blue mb-1 md:mb-2 italic">{data.stats?.yearsOfExperience || '15+'}</div>
+            <div className="text-[10px] md:text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Years</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl md:text-4xl font-bold text-brand-blue mb-1 md:mb-2">{data.stats?.studentsCount || '50K+'}</div>
-            <div className="text-[10px] md:text-sm text-brand-grey font-medium uppercase tracking-wider">Students</div>
+          <div className="text-center p-2 border-l border-slate-100">
+            <div className="text-3xl md:text-5xl font-extrabold text-brand-blue mb-1 md:mb-2 italic">{data.stats?.studentsCount || '50K+'}</div>
+            <div className="text-[10px] md:text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Students</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl md:text-4xl font-bold text-brand-blue mb-1 md:mb-2">{data.stats?.partnersCount || '800+'}</div>
-            <div className="text-[10px] md:text-sm text-brand-grey font-medium uppercase tracking-wider">Partners</div>
+          <div className="text-center p-2 border-l border-slate-100">
+            <div className="text-3xl md:text-5xl font-extrabold text-brand-blue mb-1 md:mb-2 italic">{data.stats?.partnersCount || '800+'}</div>
+            <div className="text-[10px] md:text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Partners</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl md:text-4xl font-bold text-brand-blue mb-1 md:mb-2">{data.stats?.satisfactionRate || '100%'}</div>
-            <div className="text-[10px] md:text-sm text-brand-grey font-medium uppercase tracking-wider">Satisfaction</div>
+          <div className="text-center p-2 border-l border-slate-100">
+            <div className="text-3xl md:text-5xl font-extrabold text-brand-blue mb-1 md:mb-2 italic">{data.stats?.satisfactionRate || '100%'}</div>
+            <div className="text-[10px] md:text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Success</div>
           </div>
         </div>
       </section>
 
       {/* About Section - Smoother transition */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -123,7 +123,7 @@ export default async function Home() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4">Our Services</h2>
