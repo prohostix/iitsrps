@@ -32,7 +32,8 @@ export async function login(formData: FormData) {
     const adminPassword = process.env.ADMIN_PASSWORD;
 
     if (!adminEmail || !adminPassword) {
-        throw new Error('Admin credentials not configured. Please set ADMIN_EMAIL and ADMIN_PASSWORD environment variables.');
+        console.error('AUTH_ERROR: Admin credentials not configured in environment variables.');
+        throw new Error('Admin credentials not configured. Please set ADMIN_EMAIL and ADMIN_PASSWORD.');
     }
 
     if (email === adminEmail && password === adminPassword) {
@@ -41,15 +42,25 @@ export async function login(formData: FormData) {
 
         // Save the session in a cookie
         const cookieStore = await cookies();
+        
+        // Check if we should use secure cookies. 
+        // We disable it if the user explicitly asks (DISABLE_SECURE_COOKIE) or if we're not in production.
+        const isProd = process.env.NODE_ENV === 'production';
+        const useSecure = isProd && !process.env.DISABLE_SECURE_COOKIE;
+
         cookieStore.set('session', session, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production' && !process.env.DISABLE_SECURE_COOKIE,
+            secure: useSecure,
+            sameSite: 'lax',
             expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
             path: '/'
         });
 
+        console.log(`AUTH_SUCCESS: Admin logged in successfully as ${email}`);
         return true;
     }
+    
+    console.warn(`AUTH_FAILURE: Invalid login attempt for email: ${email}`);
     return false;
 }
 

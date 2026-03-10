@@ -51,18 +51,22 @@ export async function middleware(request: NextRequest) {
     if (cookie) {
         try {
             session = await decrypt(cookie);
-        } catch {
-            // invalid session
+        } catch (error) {
+            console.error('MIDDLEWARE_AUTH_ERROR: Failed to decrypt session cookie.', error);
         }
     }
 
     // 3. Redirect logic
     if (path === '/admin') {
-        return NextResponse.redirect(new URL(session ? '/admin/dashboard' : '/admin/login', request.nextUrl));
+        const target = session ? '/admin/dashboard' : '/admin/login';
+        return NextResponse.redirect(new URL(target, request.nextUrl));
     }
 
     if (isProtectedPath && !isLoginPath && !session) {
-        return NextResponse.redirect(new URL('/admin/login', request.nextUrl));
+        console.log(`MIDDLEWARE_AUTH_REDIRECT: Unauthenticated access attempt to ${path}. Redirecting to login.`);
+        const url = new URL('/admin/login', request.nextUrl);
+        // Avoid query param loops if already on login (redundant here but safe)
+        return NextResponse.redirect(url);
     }
 
     if (isLoginPath && session) {
