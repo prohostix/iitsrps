@@ -29,11 +29,15 @@ export async function middleware(request: NextRequest) {
 
     // Apply rate limiting to login attempts
     if (path === '/admin/login' && request.method === 'POST') {
-        if (!rateLimit(ip, 5, 15 * 60 * 1000)) { // 5 attempts per 15 minutes
-            return NextResponse.json(
-                { error: 'Too many login attempts. Please try again later.' },
-                { status: 429 }
-            );
+        const isDev = process.env.NODE_ENV === 'development';
+        const limit = isDev ? 100 : 20; // More lenient in dev, 20 in prod
+
+        if (!rateLimit(ip, limit, 15 * 60 * 1000)) {
+            // For form submissions/server actions, redirecting to the login page with an error
+            // query param is more robust than returning JSON, which can cause "unexpected response" errors.
+            const url = request.nextUrl.clone();
+            url.searchParams.set('error', 'rate-limit');
+            return NextResponse.redirect(url);
         }
     }
 

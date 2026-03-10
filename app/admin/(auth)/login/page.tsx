@@ -1,14 +1,28 @@
 import { loginAction } from '@/lib/actions';
 
-export default function LoginPage() {
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+    const params = await searchParams;
+    const error = params.error;
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-100">
+        <div className="min-h-screen flex items-center justify-center bg-slate-100 p-4">
             <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md border border-slate-200">
                 <div className="text-center mb-8">
                     <h1 className="text-2xl font-bold text-slate-900">Admin Login</h1>
                     <p className="text-slate-500 mt-2">Enter your credentials to continue</p>
                 </div>
+
+                {error === '1' && (
+                    <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium">
+                        Invalid email or password. Please try again.
+                    </div>
+                )}
+
+                {error === 'rate-limit' && (
+                    <div className="mb-6 p-4 bg-orange-50 border border-orange-200 text-orange-600 rounded-xl text-sm font-medium">
+                        Too many login attempts. Please wait 15 minutes.
+                    </div>
+                )}
 
                 <form action={loginAction} className="space-y-6">
                     <div>
