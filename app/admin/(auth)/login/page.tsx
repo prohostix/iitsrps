@@ -24,6 +24,12 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
                     </div>
                 )}
 
+                {error === 'auth-failure' && (
+                    <div className="mb-6 p-4 bg-slate-50 border border-slate-200 text-slate-600 rounded-xl text-sm font-medium">
+                        Authentication service error. Please contact support.
+                    </div>
+                )}
+
                 <form action={loginAction} className="space-y-6">
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>

@@ -43,7 +43,7 @@ export async function login(formData: FormData) {
         const cookieStore = await cookies();
         cookieStore.set('session', session, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: process.env.NODE_ENV === 'production' && !process.env.DISABLE_SECURE_COOKIE,
             expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
             path: '/'
         });
